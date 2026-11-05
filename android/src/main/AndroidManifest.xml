@@ -1,2 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <application>
+    <provider
+      android:name="com.perfmonitor.PerfMonitorInitializer"
+      android:authorities="${applicationId}.react-native-perf-monitor"
+      android:exported="false" />
+  </application>
+
 </manifest>

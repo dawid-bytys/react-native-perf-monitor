@@ -6,10 +6,10 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
 
-class PerfMonitorPackage : BaseReactPackage() {
+class RNPerfMonitorPackage : BaseReactPackage() {
   override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
-    return if (name == PerfMonitorModule.NAME) {
-      PerfMonitorModule(reactContext)
+    return if (name == RNPerfMonitorModule.NAME) {
+      RNPerfMonitorModule(reactContext)
     } else {
       null
     }
@@ -17,9 +17,9 @@ class PerfMonitorPackage : BaseReactPackage() {
 
   override fun getReactModuleInfoProvider() = ReactModuleInfoProvider {
     mapOf(
-      PerfMonitorModule.NAME to ReactModuleInfo(
-        name = PerfMonitorModule.NAME,
-        className = PerfMonitorModule.NAME,
+      RNPerfMonitorModule.NAME to ReactModuleInfo(
+        name = RNPerfMonitorModule.NAME,
+        className = RNPerfMonitorModule.NAME,
         canOverrideExistingModule = false,
         needsEagerInit = false,
         isCxxModule = false,

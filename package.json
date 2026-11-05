@@ -1,23 +1,25 @@
 {
-  "name": "react-native-perf-monitor",
+  "name": "@dawid-bytys/react-native-perf-monitor",
   "version": "0.1.0",
   "description": "A drop-in replacement for the React Native and Expo Performance Monitor with UI/JS FPS, CPU, memory, React commits, network and thermal metrics.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
     ".": {
-      "react-native-perf-monitor-source": "./src/index.tsx",
+      "react-native-perf-monitor-source": "./src/index.ts",
       "types": "./lib/typescript/src/index.d.ts",
       "default": "./lib/module/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./app.plugin.js": "./app.plugin.js"
   },
   "files": [
     "src",
     "lib",
     "android",
     "ios",
-    "cpp",
+    "plugin/build",
+    "app.plugin.js",
     "*.podspec",
     "react-native.config.js",
     "!ios/build",
@@ -33,13 +35,21 @@
   ],
   "scripts": {
     "example": "yarn workspace react-native-perf-monitor-example",
-    "clean": "del-cli lib",
-    "prepare": "bob build",
+    "clean": "del-cli lib plugin/build",
+    "prepare": "bob build && yarn build:plugin",
     "typecheck": "tsc",
-    "lint": "eslint \"**/*.{js,ts,tsx}\""
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "build:plugin": "tsc --project plugin/tsconfig.json"
   },
   "keywords": [
     "react-native",
+    "expo",
+    "expo-config-plugin",
+    "performance",
+    "perf-monitor",
+    "fps",
+    "profiling",
+    "devtools",
     "ios",
     "android"
   ],
@@ -54,7 +64,8 @@
   },
   "homepage": "https://github.com/dawid-bytys/react-native-perf-monitor#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "devDependencies": {
     "@eslint/compat": "^2.1.1",
@@ -76,8 +87,9 @@
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
+    "expo": "*",
     "react": "*",
-    "react-native": "*"
+    "react-native": ">=0.79"
   },
   "workspaces": [
     "example"
@@ -102,11 +114,16 @@
     ]
   },
   "codegenConfig": {
-    "name": "PerfMonitorSpec",
+    "name": "RNPerfMonitorSpec",
     "type": "modules",
     "jsSrcsDir": "src",
     "android": {
       "javaPackageName": "com.perfmonitor"
+    },
+    "ios": {
+      "modulesProvider": {
+        "RNPerfMonitor": "RNPerfMonitor"
+      }
     }
   },
   "prettier": {
@@ -123,5 +140,10 @@
       "eslint"
     ],
     "version": "0.64.0"
+  },
+  "peerDependenciesMeta": {
+    "expo": {
+      "optional": true
+    }
   }
 }

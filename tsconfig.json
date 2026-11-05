@@ -2,7 +2,8 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-perf-monitor": ["./src/index"]
+      "@dawid-bytys/react-native-perf-monitor": ["./src/index"],
+      "expo/config-plugins": ["./example/node_modules/expo/config-plugins"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
